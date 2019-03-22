@@ -1,0 +1,15 @@
+/*********
+ * COMMON
+ *********/
+.rb-toggle {
+	&.open .content {
+
+	}
+	&.closed .content {
+		display: none;
+	}
+
+	rb-button {
+		margin-bottom: 10px;
+	}
+}

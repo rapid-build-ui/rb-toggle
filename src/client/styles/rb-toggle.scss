@@ -3,6 +3,7 @@
  ******************/
 @import 'sass/functions.scss';
 
-/* The Component
- ****************/
-
+/* Layout
+ *********/
+@import 'layout/host.scss';
+@import 'layout/common.scss';
