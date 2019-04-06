@@ -3,7 +3,7 @@
 		rb-toggle
 		${props.kind}
 		${props.inline ? 'inline' : ''}
-		${props.open ? 'open' : 'closed'}
+		${props.open && this.rb.view.isReady ? 'open' : 'closed'}
 		${props.caption ? 'with-caption' : 'no-caption'}
 	">
 	<rb-button
@@ -12,7 +12,7 @@
 		icon-valign="text-top"
 		?disabled="${props.disabled}"
 		kind="${View.ifDefined(props.kind || undefined)}"
-		icon-kind="caret-${props.open ? 'down' : 'right'}">
+		icon-kind="caret-${props.open && this.rb.view.isReady ? 'down' : 'right'}">
 		${props.caption}
 	</rb-button>
 	<div class="content">
