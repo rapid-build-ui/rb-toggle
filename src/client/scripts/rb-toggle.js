@@ -1,6 +1,10 @@
-/***********
+/********************************************
  * RB-TOGGLE
- ***********/
+ * -----------------------------------------
+ * TODO:
+ * Handle onclick and fetch errors.
+ * Provide ability to pass options to fetch.
+ ********************************************/
 import { RbBase, props, html } from '../../rb-base/scripts/rb-base.js';
 import Converter               from '../../rb-base/scripts/public/props/converters.js';
 import Type                    from '../../rb-base/scripts/public/services/type.js';
@@ -19,6 +23,10 @@ export class RbToggle extends RbBase() {
 			if (evt.composedPath()[0] !== this) return;
 			this.rb.elms.rbButton.click();
 		});
+	}
+	disconnectedCallback() { // :void
+		super.disconnectedCallback && super.disconnectedCallback();
+		this._stopPreloader(true); // jic
 	}
 	viewReady() { // :void
 		super.viewReady && super.viewReady();
@@ -87,6 +95,29 @@ export class RbToggle extends RbBase() {
 		this.open = !this.open;
 	}
 
+	/* Preloader
+	 ************/
+	_startPreloader() { // :void
+		this._stopPreloader(); // jic
+		this._preloaderTO = setTimeout(() => { // :timeoutID<int>
+			const { rbButton } = this.rb.elms;
+			this._origIconSrc   = rbButton.iconSource; // setback in _stopPreloader()
+			rbButton.iconSource = 'solid';
+			rbButton.iconKind   = 'spinner';
+			rbButton.iconSpin   = true;
+		}, 200); // small buffer
+	}
+	_stopPreloader(disconnected = false) { // :void
+		if (!Type.is.int(this._preloaderTO)) return;
+		clearTimeout(this._preloaderTO);
+		this._preloaderTO = null;
+		if (disconnected) return; // rb base cleans up.
+		this.rb.elms.rbButton.iconSpin = false;
+		if (Type.is.undefined(this._origIconSrc)) return;
+		this.rb.elms.rbButton.iconSource = this._origIconSrc;
+		delete this._origIconSrc;
+	}
+
 	/* Actions
 	 **********/
 	async _runFetch(evt) { // :string | undefined
@@ -99,22 +130,20 @@ export class RbToggle extends RbBase() {
 		return result;
 	}
 	async _runAction(evt, action) { // :string | undefined
-		const { rbButton } = this.rb.elms;
-		rbButton.iconSpin   = true;
-		rbButton.iconKind   = 'spinner';
-		rbButton.iconSource = 'solid';
 		const result = await this[action](evt);
-		rbButton.iconSpin = false;
 		if (!Type.is.string(result)) return; // if result is string set slot to string
 		this.innerHTML = result; // this updates the slot
 		return result;
 	}
-	async _action(evt) { // :void
+
+	async _action(evt) { // :void (only called in _toggleAction)
 		if (this.open) return;
 		if (this._cached) return;
 		let result;
+		this._startPreloader();
 		if (this._hasOnclick) result = await this._runAction(evt, '_runOnclick');
 		if (this._hasFetch && !result) await this._runAction(evt, '_runFetch');
+		this._stopPreloader();
 		this._cached = this.cache;
 	}
 
