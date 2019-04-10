@@ -14,16 +14,18 @@ rb-button {
 		width: 21px;
 		height: 21px;
 		margin-right: 2px;
-		border-radius: 50%;
-		box-shadow: 0 1px 2px #0000004d;
-		transition: box-shadow .3s ease-in-out;
-		&[kind*="right"] {
-			text-indent: 2px;
+		&.toggle { // not for preloader
+			border-radius: 50%;
+			box-shadow: 0 1px 2px #0000004d;
+			transition: box-shadow .3s ease-in-out;
+			&[kind*="right"] {
+				text-indent: 2px;
+			}
 		}
 	}
 
 	&:hover:not([disabled]) {
-		rb-icon {
+		.toggle {
 			box-shadow:
 				0 2px 4px  0 #0000001a,
 				0 3px 5px  0 #00000024,
