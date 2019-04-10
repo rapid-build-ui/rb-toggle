@@ -6,7 +6,7 @@
 	// content from being over everything
 	contain: layout style;
 	display: block;
-	margin-bottom: 1rem;
+	margin-bottom: 15px;
 }
 :host([hidden]) {
 	display: none;

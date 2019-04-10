@@ -43,7 +43,6 @@ export class RbToggle extends RbBase() {
 			kind: props.string,
 			fetch: props.string,
 			fetchOpts: props.object,
-			inline: props.boolean,
 			caption: props.string,
 			cache: Object.assign({}, props.boolean, {
 				default: true,
