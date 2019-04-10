@@ -1,10 +1,9 @@
-/********************************************
+/***********************************
  * RB-TOGGLE
- * -----------------------------------------
+ * --------------------------------
  * TODO:
  * Handle onclick and fetch errors.
- * Provide ability to pass options to fetch.
- ********************************************/
+ ***********************************/
 import { RbBase, props, html } from '../../rb-base/scripts/rb-base.js';
 import Converter               from '../../rb-base/scripts/public/props/converters.js';
 import Type                    from '../../rb-base/scripts/public/services/type.js';
@@ -42,7 +41,8 @@ export class RbToggle extends RbBase() {
 	static get props() {
 		return {
 			kind: props.string,
-			fetch: props.string, // TODO: make :string | object<fetch opts>
+			fetch: props.string,
+			fetchOpts: props.object,
 			inline: props.boolean,
 			caption: props.string,
 			cache: Object.assign({}, props.boolean, {
@@ -121,7 +121,7 @@ export class RbToggle extends RbBase() {
 	/* Actions
 	 **********/
 	async _runFetch(evt) { // :string | undefined
-		const fetched = await fetch(this.fetch);
+		const fetched = await fetch(this.fetch, this.fetchOpts);
 		const content = await fetched.text();
 		return content;
 	}
