@@ -30,6 +30,7 @@ export class RbToggle extends RbBase() {
 	viewReady() { // :void
 		super.viewReady && super.viewReady();
 		Object.assign(this.rb.elms, {
+			rbIcon: this.shadowRoot.querySelector('rb-icon'),
 			rbButton: this.shadowRoot.querySelector('rb-button')
 		});
 		this._attachEvents();
@@ -99,11 +100,11 @@ export class RbToggle extends RbBase() {
 	_startPreloader() { // :void
 		this._stopPreloader(); // jic
 		this._preloaderTO = setTimeout(() => { // :timeoutID<int>
-			const { rbButton } = this.rb.elms;
-			this._origIconSrc   = rbButton.iconSource; // setback in _stopPreloader()
-			rbButton.iconSource = 'solid';
-			rbButton.iconKind   = 'spinner';
-			rbButton.iconSpin   = true;
+			const { rbIcon } = this.rb.elms;
+			this._origIconSrc = rbIcon.source; // setback in _stopPreloader()
+			rbIcon.source     = 'solid';
+			rbIcon.kind       = 'spinner';
+			rbIcon.spin       = true;
 		}, 200); // small buffer
 	}
 	_stopPreloader(disconnected = false) { // :void
@@ -111,9 +112,9 @@ export class RbToggle extends RbBase() {
 		clearTimeout(this._preloaderTO);
 		this._preloaderTO = null;
 		if (disconnected) return; // rb base cleans up.
-		this.rb.elms.rbButton.iconSpin = false;
+		this.rb.elms.rbIcon.spin = false;
 		if (Type.is.undefined(this._origIconSrc)) return;
-		this.rb.elms.rbButton.iconSource = this._origIconSrc;
+		this.rb.elms.rbIcon.source = this._origIconSrc;
 		delete this._origIconSrc;
 	}
 

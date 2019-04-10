@@ -7,10 +7,12 @@
 	">
 	<rb-button
 		text
-		icon-source="solid"
 		?disabled="${props.disabled}"
-		kind="${View.ifDefined(props.kind || undefined)}"
-		icon-kind="caret-${props.open && this.rb.view.isReady ? 'down' : 'right'}">
+		kind="${View.ifDefined(props.kind || undefined)}">
+		<rb-icon
+			source="solid"
+			kind="caret-${props.open && this.rb.view.isReady ? 'down' : 'right'}">
+		</rb-icon>
 		${props.caption}
 	</rb-button>
 	<div class="content">
