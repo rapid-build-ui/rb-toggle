@@ -5,23 +5,25 @@
 		${props.open && this.rb.view.isReady ? 'open' : 'closed'}
 		${props.caption ? 'with-caption' : 'no-caption'}
 	">
-	<rb-button
-		text
-		?disabled="${props.disabled}"
-		kind="${View.ifDefined(props.kind || undefined)}">
-		<rb-icon
-			?spin="${state.preloading}"
-			class="${state.preloading ? '' : 'toggle'}"
-			source="${state.preloading ? 'solid' : 'solid'}"
-			kind="${state.preloading
-				? 'spinner'
-				: props.open && this.rb.view.isReady
-					? 'caret-down'
-					: 'caret-right'
-			}">
-		</rb-icon>
-		${props.caption}
-	</rb-button>
+	<div class="caption">
+		<rb-button
+			text
+			?disabled="${props.disabled}"
+			kind="${View.ifDefined(props.kind || undefined)}">
+			<rb-icon
+				?spin="${state.preloading}"
+				class="${state.preloading ? '' : 'toggle'}"
+				source="${state.preloading ? 'solid' : 'solid'}"
+				kind="${state.preloading
+					? 'spinner'
+					: props.open && this.rb.view.isReady
+						? 'caret-down'
+						: 'caret-right'
+				}">
+			</rb-icon>
+			${props.caption}
+		</rb-button>
+	</div>
 	<div class="content">
 		<slot></slot>
 	</div>

@@ -11,8 +11,8 @@ rb-button {
 
 	rb-icon {
 		position: relative; // without this, safari cuts off box-shadow
-		width: 21px;
-		height: 21px;
+		width: 20px;
+		height: 20px;
 		margin-right: 2px;
 		&.toggle { // not for preloader
 			border-radius: 50%;
