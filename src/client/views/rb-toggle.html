@@ -2,8 +2,9 @@
 	class="
 		rb-toggle
 		${props.kind}
-		${props.open && this.rb.view.isReady ? 'open' : 'closed'}
+		${this._hasTarget ? 'no-content' : ''}
 		${props.caption ? 'with-caption' : 'no-caption'}
+		${props.open && this.rb.view.isReady ? 'open' : 'closed'}
 	">
 	<div class="caption">
 		<rb-button
