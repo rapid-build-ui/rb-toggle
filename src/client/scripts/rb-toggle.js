@@ -27,6 +27,10 @@ export class RbToggle extends RbBase() {
 			this.rb.elms.rbButton.click();
 		});
 	}
+	connectedCallback() { // :void
+		super.connectedCallback && super.connectedCallback();
+		this._initContentTarget();
+	}
 	disconnectedCallback() { // :void
 		super.disconnectedCallback && super.disconnectedCallback();
 		this._stopPreloader(); // jic
@@ -57,8 +61,29 @@ export class RbToggle extends RbBase() {
 			}),
 			open: Object.assign({}, props.boolean, {
 				deserialize: Converter.valueless
+			}),
+			target: Object.assign({}, props.string, {
+				deserialize(val) { // :string
+					if (!Type.is.string(val)) return val;
+					val = val.trim();
+					return val;
+				}
+			}),
+			targetRoot: Object.assign({}, props.string, {
+				deserialize(val) { // :string
+					if (!Type.is.string(val)) return val;
+					val = val.trim();
+					return val;
+				}
 			})
 		};
+	}
+
+	/* Target Option
+	 ****************/
+	_initContentTarget() { // :void
+		const open = this.open && !this._hasAction;
+		this._toggleContentTarget(open);
 	}
 
 	/* Getters and Setters
@@ -78,6 +103,15 @@ export class RbToggle extends RbBase() {
 	get _hasOnclick() { // :boolean (readonly)
 		return !!this.rb.events.host.events.click;
 	}
+	get _hasTarget() { // :boolean
+		return !!this.target;
+	}
+	get _contentTarget() { // :target<elm> | host<elm>
+		if (!this._hasTarget) return this; // host
+		const targetRoot = !!this.targetRoot ? this.closest(this.targetRoot) : document;
+		const target     = targetRoot.querySelector(this.target);
+		return target;
+	}
 
 	/* Event Management
 	 *******************/
@@ -91,11 +125,17 @@ export class RbToggle extends RbBase() {
 		if (this.disabled) return;
 		if (!this.open) return;
 		if (!this._hasAction) return this.triggerUpdate(); // because view.isReady check in template
-		this._toggle(); // close and wait for _toggleAction() to open
+		this._toggle(); // close and wait for _toggleAction() to open from button click
 		this.rb.elms.rbButton.click();
 	}
 	_toggle() { // :void
 		this.open = !this.open;
+		this._toggleContentTarget(this.open);
+	}
+	_toggleContentTarget(open) { // :void
+		if (!this._hasTarget) return;
+		let toggle = (open ? 'remove' : 'set') + 'Attribute';
+		this._contentTarget[toggle]('rb-hide',''); // boolean attr
 	}
 
 	/* Preloader
@@ -128,7 +168,7 @@ export class RbToggle extends RbBase() {
 	async _runAction(evt, action) { // :string | undefined
 		const result = await this[action](evt);
 		if (!Type.is.string(result)) return; // if result is string set slot to string
-		this.innerHTML = result; // this updates the slot
+		this._contentTarget.innerHTML = result; // updates slot or target
 		return result;
 	}
 

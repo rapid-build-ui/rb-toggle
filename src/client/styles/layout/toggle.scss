@@ -2,30 +2,42 @@
  * TOGGLE
  *********/
 rb-button {
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: 500;
+	line-height: 24px;
 	letter-spacing: .1px;
 	text-transform: uppercase;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	rb-icon {
+	.toggle {
 		position: relative; // without this, safari cuts off box-shadow
+		display: inline-block;
 		width: 20px;
 		height: 20px;
 		margin-right: 2px;
-		&.toggle { // not for preloader
+		rb-icon {
+			position: relative;
+		}
+		&:not(.preloader) { // not for preloader
 			border-radius: 50%;
 			box-shadow: 0 1px 2px #0000004d;
 			transition: box-shadow .3s ease-in-out;
-			&[kind*="right"] {
-				text-indent: 2px;
+			rb-icon {
+				top: -1px;
+				&[kind*="right"] {
+					top: -1px;
+					left: .5px;
+				}
 			}
+		}
+		&.preloader rb-icon {
+			top: .5px;
 		}
 	}
 
 	&:hover:not([disabled]) {
-		.toggle {
+		.toggle:not(.preloader) {
 			box-shadow:
 				0 2px 4px  0 #0000001a,
 				0 3px 5px  0 #00000024,
