@@ -38,7 +38,7 @@ common:
 			templateCache: false
 			options:
 				ignoreCustomFragments: [
-					/<rb-icon|<\/rb-icon>/gi # needed for space between icon and caption
+					/\${props\.caption}/gi # needed for space between icon and caption
 				]
 		css:
 			fileName:
