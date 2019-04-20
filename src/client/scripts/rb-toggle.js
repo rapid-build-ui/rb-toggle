@@ -10,7 +10,6 @@ import Type                    from '../../rb-base/scripts/public/services/type.
 import View                    from '../../rb-base/scripts/public/view/directives.js';
 import template                from '../views/rb-toggle.html';
 import '../../rb-button/scripts/rb-button.js';
-import '../../rb-popover/scripts/rb-popover.js';
 
 export class RbToggle extends RbBase() {
 	/* Lifecycle
