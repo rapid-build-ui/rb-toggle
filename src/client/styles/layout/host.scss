@@ -11,3 +11,6 @@
 :host([hidden]) {
 	display: none;
 }
+:host([inline]) {
+	display: inline-block;
+}
