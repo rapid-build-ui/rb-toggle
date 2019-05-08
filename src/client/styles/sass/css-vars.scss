@@ -1,0 +1,7 @@
+/********************
+ * CSS VARIABLES MAP
+ ********************/
+$component: 'rb-toggle';
+$vars: (
+	common: getCssVarsMap($component, $commonCssVars)
+);
