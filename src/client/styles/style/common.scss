@@ -1,0 +1,20 @@
+/********************************************
+ * COMMON STYLES (for light and dark themes)
+ ********************************************/
+@mixin setCommonStyles() {
+	// Common For All Kinds (root tag)
+
+
+	// Kinds
+	$kinds: default, danger, info, neutral, success, warning;
+	@each $kind in $kinds {
+		.#{$kind} {
+			rb-button {
+				--rb-button-#{$kind}-text-button-color: #{mapGet($vars, common, #{$kind}-caption-color)};
+				--rb-button-#{$kind}-text-button-color-hover: #{mapGet($vars, common, #{$kind}-caption-color-hover)};
+			}
+		}
+	}
+}
+
+@include setCommonStyles();

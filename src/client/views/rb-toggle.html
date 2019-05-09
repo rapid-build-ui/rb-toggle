@@ -2,19 +2,31 @@
 	class="
 		rb-toggle
 		${props.kind}
-		${props.inline ? 'inline' : ''}
-		${props.open ? 'open' : 'closed'}
+		${this._hasTarget ? 'no-content' : ''}
 		${props.caption ? 'with-caption' : 'no-caption'}
+		${props.open && this.rb.view.isReady ? 'open' : 'closed'}
 	">
-	<rb-button
-		text
-		icon-source="solid"
-		icon-valign="text-top"
-		?disabled="${props.disabled}"
-		kind="${View.ifDefined(props.kind || undefined)}"
-		icon-kind="caret-${props.open ? 'down' : 'right'}">
-		${props.caption}
-	</rb-button>
+	<div class="caption">
+		<rb-button
+			text
+			?disabled="${props.disabled}"
+			kind="${View.ifDefined(props.kind || undefined)}">
+			<span class="toggle ${state.preloading ? 'preloader' : ''}">
+				<rb-icon
+					size=".85"
+					?spin="${state.preloading}"
+					source="${state.preloading ? 'solid' : 'solid'}"
+					kind="${state.preloading
+						? 'spinner'
+						: props.open && this.rb.view.isReady
+							? 'angle-down'
+							: 'angle-right'
+					}">
+				</rb-icon>
+			</span>
+			${props.caption}
+		</rb-button>
+	</div>
 	<div class="content">
 		<slot></slot>
 	</div>

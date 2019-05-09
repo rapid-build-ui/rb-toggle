@@ -2,10 +2,15 @@
  * HOST
  *******/
 :host {
-	contain: content;
+	// layout prevents margins from collapsing
+	// paint prevents popover inside content from being over everything
+	contain: style;
 	display: block;
-	margin-bottom: 1rem;
+	margin-bottom: 18px;
 }
 :host([hidden]) {
 	display: none;
+}
+:host([inline]) {
+	display: inline-block;
 }

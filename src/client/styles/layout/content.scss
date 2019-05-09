@@ -1,0 +1,13 @@
+/**********
+ * CONTENT
+ **********/
+.content {
+	margin-top: 18px;
+}
+
+.closed,
+.no-content {
+	.content {
+		display: none;
+	}
+}

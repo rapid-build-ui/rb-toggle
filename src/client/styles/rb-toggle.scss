@@ -2,8 +2,20 @@
  * RB-TOGGLE STYLES
  ******************/
 @import 'sass/functions.scss';
+@import 'sass/palette.scss';
 
 /* Layout
  *********/
 @import 'layout/host.scss';
 @import 'layout/common.scss';
+@import 'layout/toggle.scss';
+@import 'layout/content.scss';
+
+/* CSS Style Variables
+ **********************/
+@import 'variables/common.scss';
+@import 'sass/css-vars.scss';
+
+/* Styles
+ *********/
+@import 'style/common.scss';
