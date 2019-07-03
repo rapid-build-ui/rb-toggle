@@ -5,7 +5,6 @@
 $commonCssVars: (
 	// Borders (common for all kinds)
 
-
 	// Caption Colors
 	default-caption-color: mapGet($palette, blue),
 	danger-caption-color:  mapGet($palette, red),
@@ -13,7 +12,6 @@ $commonCssVars: (
 	neutral-caption-color: mapGet($palette, grey),
 	success-caption-color: mapGet($palette, green),
 	warning-caption-color: mapGet($palette, yellow),
-
 
 	// Caption Hover Colors
 	default-caption-color-hover: mapGet($palette, blueLight),
