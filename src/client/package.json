@@ -1,6 +1,6 @@
 {
   "name": "@rapid-build-ui/rb-toggle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "scripts/rb-toggle.js",
   "description": "Rapid Build UI Web Component: rb-toggle",
   "license": "MIT",
