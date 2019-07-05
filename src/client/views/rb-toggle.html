@@ -4,7 +4,7 @@
 		${props.kind}
 		${this._hasTarget ? 'no-content' : ''}
 		${props.caption ? 'with-caption' : 'no-caption'}
-		${props.open && this.rb.view.isReady ? 'open' : 'closed'}
+		${this._openToggle ? 'open' : 'closed'}
 	">
 	<div class="caption">
 		<rb-button
@@ -18,7 +18,7 @@
 					source="${state.preloading ? 'solid' : 'solid'}"
 					kind="${state.preloading
 						? 'spinner'
-						: props.open && this.rb.view.isReady
+						: this._openToggle
 							? 'angle-down'
 							: 'angle-right'
 					}">
