@@ -16,6 +16,7 @@ export class RbToggle extends RbBase() {
 	 ************/
 	constructor() { // :void
 		super();
+		this.version = '0.0.1';
 		this.state = {
 			...super.state,
 			preloading: false
@@ -89,6 +90,9 @@ export class RbToggle extends RbBase() {
 
 	/* Getters and Setters
 	 **********************/
+	get _openToggle() { // :boolean (readonly)
+		return this.open && (!this._hasAction || this.rb.view.isReady);
+	}
 	get _cached() { // :boolean
 		return !!this.__cached;
 	}
@@ -125,7 +129,7 @@ export class RbToggle extends RbBase() {
 	_initToggle() { // :void
 		if (this.disabled) return;
 		if (!this.open) return;
-		if (!this._hasAction) return this.triggerUpdate(); // because view.isReady check in template
+		if (!this._hasAction) return;
 		this._toggle(); // close and wait for _toggleAction() to open from button click
 		this.rb.elms.rbButton.click();
 	}
