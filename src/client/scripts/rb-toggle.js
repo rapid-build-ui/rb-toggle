@@ -16,7 +16,7 @@ export class RbToggle extends RbBase() {
 	 ************/
 	constructor() { // :void
 		super();
-		this.version = '0.0.3';
+		this.version = '0.0.4';
 		this.state = {
 			...super.state,
 			preloading: false

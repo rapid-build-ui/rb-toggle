@@ -1,3 +1,12 @@
+## [0.0.4](https://github.com/rapid-build-ui/rb-toggle/compare/v0.0.3...v0.0.4) (2019-07-16)
+
+
+### Dependencies
+
+* **bump:** deps base v0.0.12 and rb-button v0.0.19 ([6dc8fc9](https://github.com/rapid-build-ui/rb-toggle/commit/6dc8fc9))
+
+
+
 ## [0.0.3](https://github.com/rapid-build-ui/rb-toggle/compare/v0.0.2...v0.0.3) (2019-07-12)
 
 
