@@ -118,6 +118,17 @@ export class RbToggle extends RbBase() {
 		return target;
 	}
 
+	/* Observer
+	 ***********/
+	updating(prevProps, prevState) { // :void
+		const init = Type.is.undefined(prevProps.open) && this.open === false; // init state
+		if (init) return;
+		if (prevProps.open === this.open) return;
+		const evtType = this.open ? 'open' : 'close';
+		this.rb.events.emit(this, evtType);
+		this.rb.events.emit(this, 'toggled', { detail: { open: this.open }});
+	}
+
 	/* Event Management
 	 *******************/
 	_attachEvents() { // :void
