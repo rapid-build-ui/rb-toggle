@@ -85,6 +85,7 @@ export class RbToggle extends RbBase() {
 	/* Helpers
 	 **********/
 	emitToggleEvents(prevOpen) { // :boolean (runs in updating())
+		if (prevOpen === this.open) return false;
 		if (Type.is.undefined(prevOpen) && !this.open) return false; // init state
 		if (Type.is.undefined(prevOpen) && this.open && this._hasAction) return false; // wait for action on init to run
 		if (this.state.openWithActionOnInit) return false; // see _initToggle()
