@@ -19,7 +19,8 @@ export class RbToggle extends RbBase() {
 		this.version = '0.0.4';
 		this.state = {
 			...super.state,
-			preloading: false
+			preloading: false,
+			openWithActionOnInit: false
 		};
 		this.rb.events.host.add(['click']);
 		this.rb.events.add(this, 'click', evt => { // rb-toggle.click()
@@ -81,6 +82,15 @@ export class RbToggle extends RbBase() {
 		};
 	}
 
+	/* Helpers
+	 **********/
+	emitToggleEvents(prevOpen) { // :boolean (runs in updating())
+		if (Type.is.undefined(prevOpen) && !this.open) return false; // init state
+		if (Type.is.undefined(prevOpen) && this.open && this._hasAction) return false; // wait for action on init to run
+		if (this.state.openWithActionOnInit) return false; // see _initToggle()
+		return true;
+	}
+
 	/* Target Option
 	 ****************/
 	_initContentTarget() { // :void
@@ -121,9 +131,7 @@ export class RbToggle extends RbBase() {
 	/* Observer
 	 ***********/
 	updating(prevProps, prevState) { // :void
-		const init = Type.is.undefined(prevProps.open) && this.open === false; // init state
-		if (init) return;
-		if (prevProps.open === this.open) return;
+		if (!this.emitToggleEvents(prevProps.open)) return;
 		const evtType = this.open ? 'open' : 'close';
 		this.rb.events.emit(this, evtType);
 		this.rb.events.emit(this, 'toggled', { detail: { open: this.open }});
@@ -141,6 +149,7 @@ export class RbToggle extends RbBase() {
 		if (this.disabled) return;
 		if (!this.open) return;
 		if (!this._hasAction) return;
+		this.state.openWithActionOnInit = true;
 		this._toggle(); // close and wait for _toggleAction() to open from button click
 		this.rb.elms.rbButton.click();
 	}
@@ -203,6 +212,7 @@ export class RbToggle extends RbBase() {
 	 *****************/
 	async _toggleAction(evt) { // :void
 		if (this._hasAction) await this._action(evt);
+		this.state.openWithActionOnInit = false;
 		// console.log('TOGGLED');
 		this._toggle();
 	}
